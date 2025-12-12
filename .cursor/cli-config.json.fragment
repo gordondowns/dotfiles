@@ -1,0 +1,21 @@
+# This file is not valid json. It's just settings I want to keep.
+{
+  "permissions": {
+    "allow": [
+      "Shell(ls)",
+      "Shell(cd)",
+      "Shell(grep)",
+      "Shell(head)",
+      "Shell(tail)",
+      "Shell(dazel)"
+    ],
+    "deny": [
+      "Shell(rm)"
+    ]
+  },
+  "version": 1,
+  "editor": {
+    "vimMode": false
+  },
+  "approvalMode": "allowlist",
+}

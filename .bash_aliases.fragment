@@ -1,0 +1,7 @@
+# UPdate EVerything
+alias upev='sudo apt update -y && sudo apt full-upgrade -y --fix-missing && sudo apt autoremove -y && sudo apt clean -y && sudo apt autoclean -y'
+
+# Cursor CLI
+alias ca='cursor-agent'
+
+alias echored='tput setaf 1; echo "$@" ; tput sgr0'

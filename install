@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+echo Starting dotfiles installation.
+
+BASEDIR=$(dirname $0)
+cd $BASEDIR
+BACKUP_DIR="$HOME/.dotfiles_backup"
+TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
+BACKUP_SUBDIR="$BACKUP_DIR/$TIMESTAMP"
+mkdir -p "$BACKUP_SUBDIR"
+echo "Created backup directory: $BACKUP_SUBDIR"
+echo
+
+back_up_and_softlink() {
+  new="$1"
+  old="$2"
+  if [ -e "$old" ] || [ -L "$old" ]; then
+    # Get the path relative to $HOME (remove leading ~/ or $HOME/)
+    relative_path="${old#$HOME/}"
+    relative_path="${relative_path#~/}"
+    # Create the directory structure in backup directory
+    backup_path="$BACKUP_SUBDIR/$relative_path"
+    echo "Backing up existing file $old to $backup_path"
+    mkdir -p "$(dirname "$backup_path")"
+    cp -rL "$old" "$backup_path"
+    rm -r "$old"
+  else
+    echo "No existing file to back up: $old"
+  fi
+  echo "Creating symlink: $old -> $new"
+  mkdir -p $(dirname $old)
+  ln -sfn "$new" "$old"
+}
+
+back_up_and_softlink ${PWD}/.bash_logout ~/.bash_logout
+back_up_and_softlink ${PWD}/.bash_profile ~/.bash_profile
+back_up_and_softlink ${PWD}/.bashrc ~/.bashrc
+back_up_and_softlink ${PWD}/.config/lazyvim ~/.config/lazyvim
+back_up_and_softlink ${PWD}/.inputrc ~/.inputrc
+back_up_and_softlink ${PWD}/.jupyter/nbconfig/notebook.json ~/.jupyter/nbconfig/notebook.json
+back_up_and_softlink ${PWD}/.profile ~/.profile
+back_up_and_softlink ${PWD}/.tmux.conf ~/.tmux.conf
+back_up_and_softlink ${PWD}/.vimrc ~/.vimrc
+
+echo
+echo "Make sure to install the following config fragments manually:"
+echo .bash_aliases
+echo .cursor/cli-config.json
+echo .gitconfig
+echo
+echo Finished dotfiles installation.

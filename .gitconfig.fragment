@@ -1,0 +1,18 @@
+[alias]
+  push-review = push origin HEAD:refs/for/main
+  push-ready = push origin HEAD:refs/for/main
+  push-wip = push origin HEAD:refs/for/main%wip
+  unpushed = log --branches --not --remotes --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+[pull]
+	ff = only
+
+[diff]
+    tool = vimdiff
+[merge]
+    tool = vimdiff
+    ; conflictstyle = zdiff3
+[mergetool "vimdiff"]
+    cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED \
+          -c '$wincmd w' -c 'wincmd J'
+

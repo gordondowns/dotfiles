@@ -1,0 +1,9 @@
+# https://www.reddit.com/r/vim/comments/9atgsj/comment/e50056v
+# set editing-mode vi
+# I tried the above to make it so that I could easily edit my commandline after I had already
+# started typing. It did accomplish that, but it was very limited and messed up my copy/paste
+# so I decided it wasn't worth it.
+
+# Enable Sam Payne's partial searching with arrow keys
+"\e[A": history-search-backward
+"\e[B": history-search-forward
