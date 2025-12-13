@@ -120,6 +120,7 @@ fi
 
 export PATH=${PATH}:/opt/p4v/bin/
 export PATH=${PATH}:/opt/pycharm-community-2020.3.3/bin/
+export PATH=${PATH}:/home/gdowns/.local/bin/
 
 # Make tmux append to history (from https://askubuntu.com/a/339925)
 # avoid duplicates..
