@@ -116,11 +116,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-######### Below set by Gordon
-
-export PATH=${PATH}:/opt/p4v/bin/
-export PATH=${PATH}:/opt/pycharm-community-2020.3.3/bin/
-export PATH=${PATH}:/home/gdowns/.local/bin/
+######### Personal shell settings
 
 # Make tmux append to history (from https://askubuntu.com/a/339925)
 # avoid duplicates..
@@ -135,7 +131,23 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 # Make tmux display colors for the prompt (from https://unix.stackexchange.com/a/493472)
 force_color_prompt=yes
 
-export VISUAL=vim
-export EDITOR="$VISUAL"
-export NVIM_APPNAME=lazyvim
 
+# Edit the current command line in $VISUAL (nvim) WITHOUT auto-executing it.
+# Unlike readline's built-in edit-and-execute-command (C-x C-e), which runs the
+# buffer as soon as you save+quit, this drops the edited text back onto the
+# prompt so you can review it before pressing Enter.
+# Bound to C-e below, overriding the default end-of-line.
+__edit_command_line() {
+    local tmpfile
+    tmpfile=$(mktemp "${TMPDIR:-/tmp}/bash-edit-cmdline.XXXXXX") || return
+    printf '%s' "$READLINE_LINE" > "$tmpfile"
+    "${VISUAL:-${EDITOR:-nvim}}" "$tmpfile"
+    READLINE_LINE=$(<"$tmpfile")
+    READLINE_POINT=${#READLINE_LINE}
+    rm -f "$tmpfile"
+}
+bind -x '"\C-e": __edit_command_line'
+
+if [ -f "$HOME/.local/bin/env" ]; then
+    . "$HOME/.local/bin/env"
+fi

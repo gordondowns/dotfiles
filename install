@@ -33,18 +33,23 @@ back_up_and_softlink() {
 
 back_up_and_softlink ${PWD}/.bash_logout ~/.bash_logout
 back_up_and_softlink ${PWD}/.bash_profile ~/.bash_profile
+back_up_and_softlink ${PWD}/.bash_aliases ~/.bash_aliases
 back_up_and_softlink ${PWD}/.bashrc ~/.bashrc
 back_up_and_softlink ${PWD}/.config/lazyvim ~/.config/lazyvim
+back_up_and_softlink ${PWD}/.config/zellij ~/.config/zellij
 back_up_and_softlink ${PWD}/.inputrc ~/.inputrc
 back_up_and_softlink ${PWD}/.jupyter/nbconfig/notebook.json ~/.jupyter/nbconfig/notebook.json
 back_up_and_softlink ${PWD}/.profile ~/.profile
 back_up_and_softlink ${PWD}/.tmux.conf ~/.tmux.conf
 back_up_and_softlink ${PWD}/.vimrc ~/.vimrc
+back_up_and_softlink ${PWD}/.agents/AGENTS.md ~/.codex/AGENTS.md
+back_up_and_softlink ${PWD}/.agents/AGENTS.md ~/.claude/CLAUDE.md
+back_up_and_softlink ${PWD}/.agents/LEARNINGS.md ~/.agents/LEARNINGS.md
 
 echo
 echo "Make sure to install the following config fragments manually:"
-echo .bash_aliases
-echo .cursor/cli-config.json
-echo .gitconfig
+echo ".claude/settings.fragment.json (merge into ~/.claude/settings.json)"
+echo ".codex/config.fragment.toml (merge into ~/.codex/config.toml)"
+echo ".gitconfig.fragment (merge into ~/.gitconfig)"
 echo
 echo Finished dotfiles installation.
