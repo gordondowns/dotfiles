@@ -5,11 +5,4 @@ return {
     "mini.pairs",
     enabled = false,
   },
-  {
-    "folke/snacks.nvim",
-    opts = {
-      -- scroll = { enabled = false },
-      -- , indent = {enabled=false}
-    },
-  },
 }

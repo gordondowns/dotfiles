@@ -14,3 +14,18 @@ vim.api.nvim_create_autocmd({"BufEnter", "CursorHold", "CursorHoldI", "FocusGain
   command = "if mode() != 'c' | checktime | endif",
   pattern = { "*" }
 })
+
+-- bufferline.nvim is disabled, but LazyVim's default forces showtabline=2.
+-- Override here since autocmds.lua runs on VeryLazy, after plugin setup.
+vim.opt.showtabline = 0
+
+-- LazyVim auto-enables spell (and wrap) for text/markdown/gitcommit/etc.
+-- Drop the spell behavior but keep wrap.
+vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("wrap_no_spell", {}),
+  pattern = { "text", "plaintex", "typst", "gitcommit", "markdown" },
+  callback = function()
+    vim.opt_local.wrap = true
+  end,
+})
